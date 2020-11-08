@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bernardodon/AgendaTelefonica"
+  },
+  "keywords": [
+    "Angularjs",
+    "youtube",
+    "learningcode",
+    "javascript",
+    "express",
+    "node"
+  ],
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^6.x"
+  },
+  "author": "Bernard Odon",
+  "license": "MIT"
+}

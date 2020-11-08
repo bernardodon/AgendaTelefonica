@@ -28,13 +28,9 @@
     <script src="lib/node_modules/angular-messages/angular-messages.js"></script>
     <script>
         angular.module("listaTelefonica", ["ngMessages"]);
-        angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, $filter){
+        angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, $http){
             $scope.app = "Lista Telefonica";
-            $scope.contatos = [
-                {nome: $filter('uppercase')("Jonatas"), telefone: "9999-8888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
-                {nome: "Valerio", telefone: "3333-4444", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
-                {nome: "Hugo", telefone: "1111-2222", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}}
-            ];
+            $scope.contatos = [];
 
             $scope.operadoras = [
                 {nome: "Oi", codigo: 14, categoria: "Celular"},
@@ -43,6 +39,10 @@
                 {nome: "GVT", codigo: 25, categoria: "Fixo"},
                 {nome: "Embratel", codigo: 21, categoria: "Fixo"},
             ];
+
+            var carregarContatos = function() {
+                $http.get()
+            }
 
             $scope.adicionarContato = function(contato) { 
                 $scope.contatos.push(angular.copy(contato));
