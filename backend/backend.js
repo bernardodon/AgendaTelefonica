@@ -33,7 +33,7 @@ app.get('/contatos', function(req, res) {
 
 app.post('/contatos', function(req, res) {
   contatos.push(req.body);
-  res(contatos);
+  res.json(contatos);
 });
 
 app.get('/operadoras', function(req, res) {
