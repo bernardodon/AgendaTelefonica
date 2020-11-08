@@ -1,0 +1,67 @@
+<html ng-app="listaTelefonica">
+<head>
+    <title>Lista Telefonica</title>
+    <link rel="stylesheet" type="text/css" href="lib/angular-1.8.0/docs/components/bootstrap-3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+    <script src="lib/angular-1.8.0/angular.js"></script>
+    <script src="lib/node_modules/angular-messages/angular-messages.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/listaTelefonicaCtrl.js"></script>
+
+    <script>
+        
+        
+    </script>
+</head>
+<body ng-controller="listaTelefonicaCtrl">
+    <div class="jumbotron">
+        <!-- <h4 ng-bind="app"></h4> NG BIND EH A MESMA COISA DO INTERPOLATION, DIFERENÇAS SUTIS -->
+        <h3> {{app}} </h3>
+        {{message}}
+        <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?">
+        <table ng-show="contatos.length>0" class="table">
+
+            <tr>
+                <th></th>
+                <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th> 
+                <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
+                <th>Operadora</th>
+                <th>Data</th>
+
+                <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:criterioBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+                    <td><input type="checkbox" ng-model="contato.selecionado"></td>
+                    <td>{{contato.nome}}</td>
+                    <td>{{contato.telefone}}</td>
+                    <td>{{contato.operadora.nome | lowercase}}</td>
+                    <td>{{contato.data | date: 'dd/MM/yyyy HH:mm'}}</td>
+                </tr>
+
+            </tr>
+
+        </table>
+
+        <hr/>
+ 
+        <form name="contatoForm">
+            <input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome" ng-required="true" ng-MinLength="10"/>
+            <input class="form-control" type="text" ng-model="contato.telefone" name="telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/"/>
+            <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras | orderBy: 'nome'">
+                <option value="">Selecione uma operadora</option>
+            </select>
+        </form>
+
+        <div ng-messages="contatoForm.nome.$error" ng-show="contatoForm.nome.$dirty">
+            <div class="alert alert-danger" ng-message="required">Por favor, preencha o nome.</div>
+            <div class="alert alert-danger" ng-message="minlength">O campo deve ter no mínimo 10 caracteres.</div>
+        </div>
+
+        <div class="alert alert-danger" ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty"> Por favor, preencha o telefone.</div>
+        <div class="alert alert-danger" ng-show="contatoForm.telefone.$error.pattern">O campo telefone deve ter o formato DDDD-DDDD.</div>
+
+        <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar Contato</button>
+        <button class="btn btn-danger btn-block" ng-click="apagarContato(contatos)" ng-if="isContatoSelecionado()">Apagar Contato</button>
+    </div>
+    <!--<div ng-include="'footer.html'"></div> -->
+</body>
+</html>
